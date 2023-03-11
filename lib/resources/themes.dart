@@ -5,6 +5,8 @@ import 'colors.dart';
 ThemeData themeData = ThemeData(
   brightness: Brightness.light,
   primaryColor: darkBlueColor,
+  accentColor: darkPurpleColor,
+  //buttonTheme: _buttonTheme,
   textTheme: _textTheme,
 );
 
@@ -14,17 +16,27 @@ TextTheme _textTheme = TextTheme(
   labelSmall: _labelSmall,
 );
 
-TextStyle _labelLarge = TextStyle(
+// ButtonThemeData _buttonTheme = ButtonThemeData(
+//   buttonColor: darkPurpleColor,
+//   shape: RoundedRectangleBorder(
+//     borderRadius: BorderRadius.circular(20.0),
+//   ),
+// );
+
+TextStyle _labelLarge = const TextStyle(
   fontSize: 24,
-  color: pinkColor,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
 );
 
-TextStyle _labelMedium = TextStyle(
+TextStyle _labelMedium = const TextStyle(
   fontSize: 20,
-  color: pinkColor,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
 );
 
-TextStyle _labelSmall = TextStyle(
+TextStyle _labelSmall = const TextStyle(
   fontSize: 16,
-  color: pinkColor,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
 );

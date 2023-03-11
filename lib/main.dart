@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'resources/themes.dart';
 import 'router/app_router.dart';
-import 'screens/home_screen/home_screen.dart';
+import 'view/home_screen/home_screen.dart';
 
 void main() {
   runApp(PokerApp(
