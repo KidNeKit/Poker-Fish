@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "515417683193",
+    "project_id": "poker-fish-ce046",
+    "storage_bucket": "poker-fish-ce046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515417683193:android:e520ee3e1855d7d5f3de28",
+        "android_client_info": {
+          "package_name": "com.example.poker_fish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515417683193-t657hskptj7k3uuctvgjh9s91d3lennb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3xGP2RILF7OI8x3SDxEqVeAS1sGLMpjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515417683193-t657hskptj7k3uuctvgjh9s91d3lennb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
