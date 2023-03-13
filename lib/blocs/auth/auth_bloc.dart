@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/enums/auth_status.dart';
@@ -12,13 +14,23 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-  StreamSubscription<User>? _userSubscription;
+  StreamSubscription<auth.User?>? _userSubscription;
 
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(const AuthState.unauthenticated()) {
     on<AuthUserChanged>(_onAuthUserChanged);
     on<AuthLogOutRequested>(_onAuthLogOutRequested);
+
+    _userSubscription = _authRepository.user.listen((firebaseUser) {
+      log('User auth state change subscription (AuthBloc): $firebaseUser');
+      if (firebaseUser != null) {
+        User user = User.fromFirebaseUser(firebaseUser);
+        add(AuthUserChanged(user));
+      } else {
+        add(const AuthUserChanged(User.empty()));
+      }
+    });
   }
 
   void _onAuthUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
@@ -30,5 +42,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onAuthLogOutRequested(
       AuthLogOutRequested event, Emitter<AuthState> emit) {
     unawaited(_authRepository.signOut());
+  }
+
+  @override
+  Future<void> close() {
+    _userSubscription!.cancel();
+    return super.close();
   }
 }

@@ -2,18 +2,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:poker_fish/blocs/auth/auth_bloc.dart';
-import 'package:poker_fish/repositories/auth_repository.dart';
 
+import 'blocs/auth/auth_bloc.dart';
+import 'repositories/auth_repository.dart';
 import 'resources/themes.dart';
 import 'router/app_router.dart';
-import 'view/home_screen/home_screen.dart';
+import 'view/login_screen/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
   ]).then((_) async {
     await Firebase.initializeApp();
     runApp(
@@ -44,7 +44,7 @@ class PokerApp extends StatelessWidget {
         child: MaterialApp(
           theme: themeData,
           themeMode: ThemeMode.light,
-          initialRoute: HomeScreen.routeName,
+          initialRoute: LoginScreen.routeName,
           onGenerateRoute: _appRouter.onGenerateRoute,
         ),
       ),

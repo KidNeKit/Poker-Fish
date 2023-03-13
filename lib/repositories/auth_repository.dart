@@ -25,6 +25,7 @@ class AuthRepository extends BaseAuthRepository {
           email: email, password: password);
     } catch (e) {
       log('An Error in logInWithEmailAndPassword of AuthRepository: $e');
+      rethrow;
     }
   }
 
@@ -38,6 +39,7 @@ class AuthRepository extends BaseAuthRepository {
           email: email, password: password);
     } catch (e) {
       log('An Error in signUp of AuthRepository: $e');
+      rethrow;
     }
   }
 

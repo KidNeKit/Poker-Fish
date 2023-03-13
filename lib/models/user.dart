@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class User extends Equatable {
   final String _id;
@@ -15,6 +16,11 @@ class User extends Equatable {
       : _id = '',
         _username = null,
         _email = null;
+
+  User.fromFirebaseUser(auth.User firebaseUser)
+      : _id = firebaseUser.uid,
+        _username = firebaseUser.displayName ?? '',
+        _email = firebaseUser.email ?? '';
 
   bool get isEmpty => this == const User.empty();
 
