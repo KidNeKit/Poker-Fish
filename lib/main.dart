@@ -7,7 +7,7 @@ import 'blocs/auth/auth_bloc.dart';
 import 'repositories/auth_repository.dart';
 import 'resources/themes.dart';
 import 'router/app_router.dart';
-import 'view/login_screen/login_screen.dart';
+import 'view/splash_screen.dart/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class PokerApp extends StatelessWidget {
         child: MaterialApp(
           theme: themeData,
           themeMode: ThemeMode.light,
-          initialRoute: LoginScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: _appRouter.onGenerateRoute,
         ),
       ),

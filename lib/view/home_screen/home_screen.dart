@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:poker_fish/view/global_components/custom_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../blocs/auth/auth_bloc.dart';
+import '../global_components/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/home';
@@ -34,6 +37,12 @@ class HomeScreen extends StatelessWidget {
                   CustomButton(
                     text: 'Lobby',
                     onPressedFunc: () {},
+                  ),
+                  CustomButton(
+                    text: 'Logout',
+                    onPressedFunc: () {
+                      context.read<AuthBloc>().add(AuthLogOutRequested());
+                    },
                   ),
                 ],
               ),

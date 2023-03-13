@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/auth/auth_bloc.dart';
 import '../../cubits/login/login_cubit.dart';
+import '../../models/enums/operation_status.dart';
 import '../global_components/custom_button.dart';
+import '../home_screen/home_screen.dart';
 import '../registration_screen.dart/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -13,30 +14,31 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const LoginForm(),
-          CustomButton(
-            text: 'Login',
-            onPressedFunc: () {
-              context.read<LoginCubit>().logInWithEmailAndPassword();
-            },
-          ),
-          CustomButton(
-            text: 'To Registration',
-            onPressedFunc: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(RegistrationScreen.routeName);
-            },
-          ),
-          CustomButton(
-            text: 'Logout',
-            onPressedFunc: () {
-              context.read<AuthBloc>().add(AuthLogOutRequested());
-            },
-          ),
-        ],
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status == OperationStatus.successfull) {
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+        }
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            const LoginForm(),
+            CustomButton(
+              text: 'Login',
+              onPressedFunc: () {
+                context.read<LoginCubit>().logInWithEmailAndPassword();
+              },
+            ),
+            CustomButton(
+              text: 'To Registration',
+              onPressedFunc: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(RegistrationScreen.routeName);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

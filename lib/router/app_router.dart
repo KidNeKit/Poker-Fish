@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:poker_fish/blocs/auth/auth_bloc.dart';
+import 'package:poker_fish/view/splash_screen.dart/splash_screen.dart';
 
 import '../cubits/login/login_cubit.dart';
 import '../cubits/registration/registration_cubit.dart';
@@ -13,12 +17,17 @@ class AppRouter {
     switch (settings.name) {
       case HomeScreen.routeName:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
+      case SplashScreen.routeName:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case LoginScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) =>
-                LoginCubit(authRepository: context.read<AuthRepository>()),
-            child: const LoginScreen(),
+          builder: (context) => BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) => log('State of auth changed: $state'),
+            child: BlocProvider(
+              create: (context) =>
+                  LoginCubit(authRepository: context.read<AuthRepository>()),
+              child: const LoginScreen(),
+            ),
           ),
         );
       case RegistrationScreen.routeName:

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:poker_fish/view/login_screen/login_screen.dart';
 
 import '../../cubits/registration/registration_cubit.dart';
+import '../../models/enums/operation_status.dart';
 import '../global_components/custom_button.dart';
+import '../home_screen/home_screen.dart';
+import '../login_screen/login_screen.dart';
 
 class RegistrationScreen extends StatelessWidget {
   static const String routeName = '/registration';
@@ -12,23 +14,31 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const LoginForm(),
-          CustomButton(
-            text: 'Sign Up',
-            onPressedFunc: () {
-              context.read<RegistrationCubit>().signUpWithEmailAndPassword();
-            },
-          ),
-          CustomButton(
-            text: 'To Login',
-            onPressedFunc: () {
-              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
-            },
-          ),
-        ],
+    return BlocListener<RegistrationCubit, RegistrationState>(
+      listener: (context, state) {
+        if (state.status == OperationStatus.successfull) {
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+        }
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            const LoginForm(),
+            CustomButton(
+              text: 'Sign Up',
+              onPressedFunc: () {
+                context.read<RegistrationCubit>().signUpWithEmailAndPassword();
+              },
+            ),
+            CustomButton(
+              text: 'To Login',
+              onPressedFunc: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(LoginScreen.routeName);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
