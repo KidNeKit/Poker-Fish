@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubits/login/login_cubit.dart';
+import '../../../resources/string_constants.dart';
 import '../../global_components/custom_textfield.dart';
 
 class LoginTetFields extends StatelessWidget {
@@ -25,14 +26,14 @@ class EmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) => previous.email != current.email,
-      builder: (context, state) => CustomTextField(
+    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+      return CustomTextField(
         labelText: 'Email',
         iconData: Icons.email,
+        error: state.errors[StringConstants.email.value],
         onChangeFunc: (value) => context.read<LoginCubit>().emailChanged(value),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -46,24 +47,24 @@ class PasswordInput extends StatefulWidget {
 class _PasswordInputState extends State<PasswordInput> {
   bool _isObscure = true;
 
-  void changeTextVisibility() {
-    setState(() {
-      _isObscure = !_isObscure;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) => CustomTextField(
-        labelText: 'Password',
-        obscureText: _isObscure,
-        iconData: Icons.remove_red_eye_rounded,
-        onIconPressedFunc: changeTextVisibility,
-        onChangeFunc: (value) =>
-            context.read<LoginCubit>().passwordChanged(value),
-      ),
+      builder: (context, state) {
+        return CustomTextField(
+          labelText: 'Password',
+          obscureText: _isObscure,
+          iconData: Icons.remove_red_eye_rounded,
+          onIconPressedFunc: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+          error: state.errors[StringConstants.password.value],
+          onChangeFunc: (value) =>
+              context.read<LoginCubit>().passwordChanged(value),
+        );
+      },
     );
   }
 }
