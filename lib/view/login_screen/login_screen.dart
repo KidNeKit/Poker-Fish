@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubits/login/login_cubit.dart';
 import '../../models/enums/operation_status.dart';
-import '../home_screen/home_screen.dart';
+import '../navigation_screen/navigation_screen.dart';
 import 'components/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,8 +18,10 @@ class LoginScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        log('State of auth changed: $state');
         if (state.status == OperationStatus.successfull) {
-          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+          Navigator.of(context)
+              .pushReplacementNamed(NavigationScreen.routeName);
         }
       },
       child: Scaffold(

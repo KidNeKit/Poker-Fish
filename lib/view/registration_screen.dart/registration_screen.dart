@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubits/registration/registration_cubit.dart';
 import '../../models/enums/operation_status.dart';
-import '../home_screen/home_screen.dart';
+import '../navigation_screen/navigation_screen.dart';
 import 'components/registration_form.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -16,7 +16,8 @@ class RegistrationScreen extends StatelessWidget {
     return BlocListener<RegistrationCubit, RegistrationState>(
       listener: (context, state) {
         if (state.status == OperationStatus.successfull) {
-          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+          Navigator.of(context)
+              .pushReplacementNamed(NavigationScreen.routeName);
         }
       },
       child: const Scaffold(
