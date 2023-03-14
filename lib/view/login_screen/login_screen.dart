@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubits/login/login_cubit.dart';
 import '../../models/enums/operation_status.dart';
-import '../global_components/custom_button.dart';
 import '../home_screen/home_screen.dart';
-import '../registration_screen.dart/registration_screen.dart';
+import 'components/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = '/login';
@@ -14,6 +13,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status == OperationStatus.successfull) {
@@ -21,67 +21,28 @@ class LoginScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        body: Column(
-          children: [
-            const LoginForm(),
-            CustomButton(
-              text: 'Login',
-              onPressedFunc: () {
-                context.read<LoginCubit>().logInWithEmailAndPassword();
-              },
+        backgroundColor: Theme.of(context).primaryColor,
+        body: SafeArea(
+          child: Center(
+            child: Container(
+              height: 0.6 * size.height,
+              width: 0.8 * size.width,
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(),
+                boxShadow: const [
+                  BoxShadow(
+                    blurRadius: 10.0,
+                    spreadRadius: 1.0,
+                  ),
+                ],
+              ),
+              child: const LoginForm(),
             ),
-            CustomButton(
-              text: 'To Registration',
-              onPressedFunc: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(RegistrationScreen.routeName);
-              },
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        EmailInput(),
-        PasswordInput(),
-      ],
-    );
-  }
-}
-
-class EmailInput extends StatelessWidget {
-  const EmailInput({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) => previous.email != current.email,
-      builder: (context, state) => TextField(
-        onChanged: (value) => context.read<LoginCubit>().emailChanged(value),
-      ),
-    );
-  }
-}
-
-class PasswordInput extends StatelessWidget {
-  const PasswordInput({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) => TextField(
-        onChanged: (value) => context.read<LoginCubit>().passwordChanged(value),
       ),
     );
   }
