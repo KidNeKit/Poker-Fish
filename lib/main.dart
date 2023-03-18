@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/auth/auth_bloc.dart';
+import 'blocs/lobby/lobby_bloc.dart';
 import 'repositories/auth_repository.dart';
+import 'repositories/cash_lobby_repository.dart';
 import 'resources/themes.dart';
 import 'router/app_router.dart';
 import 'view/splash_screen.dart/splash_screen.dart';
@@ -37,10 +39,21 @@ class PokerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _authRepository,
-      child: BlocProvider(
-        create: (_) => AuthBloc(authRepository: _authRepository),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: _authRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => CashLobbyRepository(),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => AuthBloc(authRepository: _authRepository),
+          ),
+        ],
         child: MaterialApp(
           theme: themeData,
           themeMode: ThemeMode.light,
