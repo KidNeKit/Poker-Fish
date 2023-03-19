@@ -1,3 +1,5 @@
+import 'package:poker_fish/models/enums/blinds.dart';
+
 import '../models/lobbies/cash_lobby.dart';
 import 'base_lobby_repository.dart';
 
@@ -9,7 +11,8 @@ class CashLobbyRepository extends BaseLobbyRepository {
 
   @override
   Future<CashLobby> createLobby() async {
-    CashLobby cashLobby = CashLobby.creation(maxPlayers: 6, buyIn: 2.00);
+    CashLobby cashLobby =
+        CashLobby.creation(maxPlayers: 6, buyIn: 2.00, blinds: Blinds.twoCents);
 
     await firestore
         .collection(getLobbyCollectionFirestorePath())

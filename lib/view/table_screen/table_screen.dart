@@ -12,7 +12,7 @@ class TableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LobbiesBloc>().add(CashLobbyCreated());
+    //context.read<LobbiesBloc>().add(CashLobbyCreated());
     return Scaffold(
       body: BlocBuilder<SingleLobbyBloc, SingleLobbyState>(
         builder: (context, state) {
