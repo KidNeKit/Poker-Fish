@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/lobbies/lobbies_bloc.dart';
 import '../../blocs/single_lobby/single_lobby_bloc.dart';
 
 class TableScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class TableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<LobbiesBloc>().add(CashLobbyCreated());
     return Scaffold(
       body: BlocBuilder<SingleLobbyBloc, SingleLobbyState>(
         builder: (context, state) {

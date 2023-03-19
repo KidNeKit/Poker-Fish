@@ -14,8 +14,16 @@ class LobbiesBloc extends Bloc<LobbiesEvent, LobbiesState> {
   final CashLobbyRepository _cashLobbyRepository = CashLobbyRepository();
 
   LobbiesBloc() : super(LobbiesState.initial()) {
+    on<CashLobbyCreated>(onCashLobbyCreated);
     on<FetchLobbies>(onFetchLobbies);
     on<UpdateCashLobbiesRequested>(onUpdateCashLobbiesRequested);
+  }
+
+  void onCashLobbyCreated(
+      CashLobbyCreated event, Emitter<LobbiesState> emit) async {
+    log('creation of cash lobby');
+    CashLobby lobby = await _cashLobbyRepository.createLobby();
+    log('cash lobby created: ${lobby.toMap()}');
   }
 
   void onFetchLobbies(FetchLobbies event, Emitter<LobbiesState> emit) {
