@@ -1,18 +1,18 @@
-part of 'lobby_bloc.dart';
+part of 'lobbies_bloc.dart';
 
-class CashLobbyState extends Equatable {
+class LobbiesState extends Equatable {
   final List<CashLobby> cashLobbiesList;
   final OperationStatus status;
 
-  const CashLobbyState({required this.cashLobbiesList, required this.status});
+  const LobbiesState({required this.cashLobbiesList, required this.status});
 
-  CashLobbyState.initial()
+  LobbiesState.initial()
       : cashLobbiesList = [],
         status = OperationStatus.initial;
 
-  CashLobbyState copyWith(
+  LobbiesState copyWith(
       {List<CashLobby>? cashLobbiesList, OperationStatus? status}) {
-    return CashLobbyState(
+    return LobbiesState(
         cashLobbiesList: cashLobbiesList ?? this.cashLobbiesList,
         status: status ?? this.status);
   }

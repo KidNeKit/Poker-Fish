@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/auth/auth_bloc.dart';
-import 'blocs/cash_lobby/lobby_bloc.dart';
+import 'blocs/lobbies/lobbies_bloc.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/cash_lobby_repository.dart';
 import 'resources/themes.dart';
 import 'router/app_router.dart';
-import 'view/splash_screen.dart/splash_screen.dart';
+import 'view/splash_screen/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,7 @@ class PokerApp extends StatelessWidget {
             create: (_) => AuthBloc(authRepository: _authRepository),
           ),
           BlocProvider(
-            create: (_) => LobbyBloc()..add(FetchLobbies()),
+            create: (_) => LobbiesBloc()..add(FetchLobbies()),
           ),
         ],
         child: MaterialApp(

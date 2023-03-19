@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubits/navigation/navigation_cubit.dart';
-import '../cash_lobby_screen/cash_lobby_screen.dart';
+import '../cash_lobbies_screen/cash_lobbies_screen.dart';
 import '../spin_lobby_screen/spin_lobby_screen.dart';
 import 'components/nav_bar.dart';
 

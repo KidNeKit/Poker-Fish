@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubits/login/login_cubit.dart';
 import '../../global_components/custom_button.dart';
-import '../../registration_screen.dart/registration_screen.dart';
+import '../../registration_screen/registration_screen.dart';
 import 'login_text_fields.dart';
 
 class LoginForm extends StatelessWidget {

@@ -7,18 +7,18 @@ import '../../models/enums/operation_status.dart';
 import '../../models/lobbies/cash_lobby.dart';
 import '../../repositories/cash_lobby_repository.dart';
 
-part 'lobby_event.dart';
-part 'lobby_state.dart';
+part 'lobbies_event.dart';
+part 'lobbies_state.dart';
 
-class LobbyBloc extends Bloc<LobbyEvent, CashLobbyState> {
+class LobbiesBloc extends Bloc<LobbiesEvent, LobbiesState> {
   final CashLobbyRepository _cashLobbyRepository = CashLobbyRepository();
 
-  LobbyBloc() : super(CashLobbyState.initial()) {
+  LobbiesBloc() : super(LobbiesState.initial()) {
     on<FetchLobbies>(onFetchLobbies);
     on<UpdateCashLobbiesRequested>(onUpdateCashLobbiesRequested);
   }
 
-  void onFetchLobbies(FetchLobbies event, Emitter<CashLobbyState> emit) {
+  void onFetchLobbies(FetchLobbies event, Emitter<LobbiesState> emit) {
     log('searching lobbies in $_cashLobbyRepository');
     emit(state.copyWith(status: OperationStatus.loading));
 
@@ -26,7 +26,7 @@ class LobbyBloc extends Bloc<LobbyEvent, CashLobbyState> {
   }
 
   void onUpdateCashLobbiesRequested(
-      UpdateCashLobbiesRequested event, Emitter<CashLobbyState> emit) {
+      UpdateCashLobbiesRequested event, Emitter<LobbiesState> emit) {
     log('searching lobbies in $_cashLobbyRepository');
     emit(state.copyWith(status: OperationStatus.loading));
 

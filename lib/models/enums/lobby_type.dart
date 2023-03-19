@@ -1,0 +1,1 @@
+enum LobbyType { cash, spin }
