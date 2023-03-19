@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../../../blocs/lobby/lobby_bloc.dart';
+import '../../../blocs/cash_lobby/lobby_bloc.dart';
 import '../../../models/enums/operation_status.dart';
 import '../../global_components/table_tag.dart';
 
@@ -16,11 +14,11 @@ class LobbiesListView extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: BlocBuilder<LobbyBloc, LobbyState>(
+        child: BlocBuilder<LobbyBloc, CashLobbyState>(
           builder: (context, state) {
             if (state.status == OperationStatus.loading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state.lobbiesList.isEmpty) {
+            } else if (state.cashLobbiesList.isEmpty) {
               return const Text('There are no lobbies');
             }
             return ListView.separated(
