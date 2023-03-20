@@ -7,6 +7,10 @@ abstract class LobbiesEvent extends Equatable {
 
 class FetchLobbies extends LobbiesEvent {}
 
-class CashLobbyCreated extends LobbiesEvent {}
+class CashLobbyCreated extends LobbiesEvent {
+  final List<CashLobby> cashLobbies;
+
+  CashLobbyCreated({required this.cashLobbies});
+}
 
 class UpdateCashLobbiesRequested extends LobbiesEvent {}

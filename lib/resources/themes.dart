@@ -30,13 +30,13 @@ TextStyle _labelLarge = const TextStyle(
 );
 
 TextStyle _labelMedium = const TextStyle(
-  fontSize: 20,
+  fontSize: 14,
   color: Colors.white,
   fontWeight: FontWeight.bold,
 );
 
 TextStyle _labelSmall = const TextStyle(
-  fontSize: 16,
+  fontSize: 12,
   color: Colors.white,
   fontWeight: FontWeight.bold,
 );

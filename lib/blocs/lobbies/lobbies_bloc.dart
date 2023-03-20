@@ -22,15 +22,20 @@ class LobbiesBloc extends Bloc<LobbiesEvent, LobbiesState> {
   void onCashLobbyCreated(
       CashLobbyCreated event, Emitter<LobbiesState> emit) async {
     log('creation of cash lobby');
-    CashLobby lobby = await _cashLobbyRepository.createLobby();
-    log('cash lobby created: ${lobby.toMap()}');
+    emit(state.copyWith(status: OperationStatus.loading));
+    for (CashLobby lobby in event.cashLobbies) {
+      CashLobby createdLobby = await _cashLobbyRepository.createLobby(lobby);
+      log('cash lobby created: ${createdLobby.toMap()}');
+    }
+    add(FetchLobbies());
   }
 
-  void onFetchLobbies(FetchLobbies event, Emitter<LobbiesState> emit) {
+  void onFetchLobbies(FetchLobbies event, Emitter<LobbiesState> emit) async {
     log('searching lobbies in $_cashLobbyRepository');
     emit(state.copyWith(status: OperationStatus.loading));
-
-    emit(state.copyWith(status: OperationStatus.successfull));
+    List<CashLobby> lobbies = await _cashLobbyRepository.getAllLobbies();
+    emit(state.copyWith(
+        status: OperationStatus.successfull, cashLobbiesList: lobbies));
   }
 
   void onUpdateCashLobbiesRequested(

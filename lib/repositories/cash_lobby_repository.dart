@@ -1,25 +1,30 @@
-import 'package:poker_fish/models/enums/blinds.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/lobbies/base_lobby.dart';
 import '../models/lobbies/cash_lobby.dart';
 import 'base_lobby_repository.dart';
 
 class CashLobbyRepository extends BaseLobbyRepository {
+  @override
+  Future<List<CashLobby>> getAllLobbies() async {
+    QuerySnapshot query =
+        await firestore.collection(getLobbyCollectionFirestorePath()).get();
+    return query.docs.map((snap) => CashLobby.fromFirebase(snap)).toList();
+  }
+
   @override
   void closeLobby() {
     // TODO: implement closeLobby
   }
 
   @override
-  Future<CashLobby> createLobby() async {
-    CashLobby cashLobby =
-        CashLobby.creation(maxPlayers: 6, buyIn: 2.00, blinds: Blinds.twoCents);
-
+  Future<CashLobby> createLobby(BaseLobby baseLobby) async {
     await firestore
         .collection(getLobbyCollectionFirestorePath())
-        .add(cashLobby.toMap())
-        .then((value) => cashLobby.setLobbyId = value.id);
+        .add(baseLobby.toMap())
+        .then((value) => baseLobby.setLobbyId = value.id);
 
-    return cashLobby;
+    return baseLobby as CashLobby;
   }
 
   @override

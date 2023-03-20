@@ -1,5 +1,7 @@
-import 'package:poker_fish/models/enums/blinds.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../enums/blinds.dart';
+import '../enums/game_speed.dart';
 import 'base_lobby.dart';
 
 class CashLobby extends BaseLobby {
@@ -8,11 +10,27 @@ class CashLobby extends BaseLobby {
     required super.maxPlayers,
     required super.buyIn,
     required super.blinds,
+    super.gameSpeed,
   });
 
   CashLobby.creation({
     required int maxPlayers,
     required double buyIn,
     required Blinds blinds,
-  }) : super.creation(maxPlayers: maxPlayers, buyIn: buyIn, blinds: blinds);
+    GameSpeed gameSpeed = GameSpeed.normal,
+  }) : super.creation(
+            maxPlayers: maxPlayers,
+            buyIn: buyIn,
+            blinds: blinds,
+            gameSpeed: gameSpeed);
+
+  static CashLobby fromFirebase(DocumentSnapshot snapshot) {
+    return CashLobby(
+      lobbyId: snapshot.id,
+      maxPlayers: snapshot['maxPlayers'],
+      buyIn: snapshot['buyIn'],
+      blinds: Blinds.getBlindsByName(snapshot['blinds']),
+      gameSpeed: GameSpeed.getBlindsByName(snapshot['gameSpeed']),
+    );
+  }
 }
