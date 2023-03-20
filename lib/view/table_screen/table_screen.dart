@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:poker_fish/view/table_screen/table_player.dart';
 
-import '../../blocs/lobbies/lobbies_bloc.dart';
-import '../../blocs/single_lobby/single_lobby_bloc.dart';
+import 'table_with_players.dart';
+import 'turn_buttons.dart';
 
 class TableScreen extends StatelessWidget {
   static const String routeName = '/table';
@@ -12,13 +10,14 @@ class TableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LobbiesBloc>().add(CashLobbyCreated());
+    //context.read<LobbiesBloc>().add(CashLobbyCreated());
     return Scaffold(
-      body: BlocBuilder<SingleLobbyBloc, SingleLobbyState>(
-        builder: (context, state) {
-          log('state of table: $state');
-          return Container();
-        },
+      body: Column(
+        children: const [
+          TableWithPlayers(),
+          TablePlayer(),
+          TurnButtons(),
+        ],
       ),
     );
   }
