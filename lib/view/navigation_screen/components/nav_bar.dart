@@ -7,6 +7,7 @@ class NavBar extends StatelessWidget {
   final List<IconData> _icons = const [
     Icons.home,
     Icons.home,
+    Icons.man,
   ];
 
   const NavBar({super.key});

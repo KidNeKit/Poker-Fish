@@ -22,11 +22,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUserChanged>(_onAuthUserChanged);
     on<AuthLogOutRequested>(_onAuthLogOutRequested);
 
-    _userSubscription = _authRepository.user.listen((firebaseUser) {
+    _userSubscription = _authRepository.user.listen((firebaseUser) async {
       log('User auth state change subscription (AuthBloc): $firebaseUser');
       if (firebaseUser != null) {
-        User user = User.fromFirebaseUser(firebaseUser);
-        add(AuthUserChanged(user));
+        User? user = await _authRepository.getUserById(firebaseUser.uid);
+        add(AuthUserChanged(user!));
       } else {
         add(const AuthUserChanged(User.empty()));
       }
