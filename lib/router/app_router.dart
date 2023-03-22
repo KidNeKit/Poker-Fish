@@ -67,7 +67,9 @@ class AppRouter {
           builder: (context) {
             String userId = context.read<AuthBloc>().state.user.id;
             return BlocProvider<SingleLobbyBloc>(
-              create: (ctx) => SingleLobbyBloc(lobbyRepository: lobbyRepository)
+              create: (ctx) => SingleLobbyBloc(
+                  lobbyRepository: lobbyRepository,
+                  authBloc: context.read<AuthBloc>())
                 ..add(LobbySelected(lobbyId: lobbyId))
                 ..add(LobbyJoined(lobbyId: lobbyId, playerId: userId)),
               child: TableScreen(
