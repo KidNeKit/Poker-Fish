@@ -13,5 +13,23 @@ abstract class BaseLobbyRepository {
 
   void closeLobby();
 
+  Future<void> joinPlayerToLobby(String lobbyId, String playerId) async {
+    firestore
+        .collection(getLobbyCollectionFirestorePath())
+        .doc(lobbyId)
+        .collection('players')
+        .doc(playerId)
+        .set({'name': 'test'});
+  }
+
+  Future<void> removePlayerFromLobby(String lobbyId, String playerId) async {
+    firestore
+        .collection(getLobbyCollectionFirestorePath())
+        .doc(lobbyId)
+        .collection('players')
+        .doc(playerId)
+        .delete();
+  }
+
   String getLobbyCollectionFirestorePath();
 }

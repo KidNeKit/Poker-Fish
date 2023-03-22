@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/single_lobby/single_lobby_bloc.dart';
 import '../cubits/login/login_cubit.dart';
 import '../cubits/navigation/navigation_cubit.dart';
@@ -63,11 +64,16 @@ class AppRouter {
             break;
         }
         return MaterialPageRoute(
-          builder: (_) {
+          builder: (context) {
+            String userId = context.read<AuthBloc>().state.user.id;
             return BlocProvider<SingleLobbyBloc>(
-              create: (_) => SingleLobbyBloc(lobbyRepository: lobbyRepository)
-                ..add(LobbySelected(lobbyId: lobbyId)),
-              child: const TableScreen(),
+              create: (ctx) => SingleLobbyBloc(lobbyRepository: lobbyRepository)
+                ..add(LobbySelected(lobbyId: lobbyId))
+                ..add(LobbyJoined(lobbyId: lobbyId, playerId: userId)),
+              child: TableScreen(
+                lobbyId: lobbyId,
+                userId: userId,
+              ),
             );
           },
         );

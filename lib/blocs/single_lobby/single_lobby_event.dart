@@ -15,3 +15,23 @@ class LobbySelected extends SingleLobbyEvent {
   @override
   List<Object> get props => [lobbyId];
 }
+
+class LobbyJoined extends SingleLobbyEvent {
+  final String lobbyId;
+  final String playerId;
+
+  const LobbyJoined({required this.lobbyId, required this.playerId});
+
+  @override
+  List<Object> get props => [lobbyId, playerId];
+}
+
+class LobbyExited extends SingleLobbyEvent {
+  final String lobbyId;
+  final String playerId;
+
+  const LobbyExited({required this.lobbyId, required this.playerId});
+
+  @override
+  List<Object> get props => [lobbyId, playerId];
+}

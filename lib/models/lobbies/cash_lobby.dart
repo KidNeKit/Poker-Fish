@@ -11,6 +11,7 @@ class CashLobby extends BaseLobby {
     required super.buyIn,
     required super.blinds,
     super.gameSpeed,
+    super.players,
   });
 
   CashLobby.creation({
@@ -31,6 +32,7 @@ class CashLobby extends BaseLobby {
       buyIn: snapshot['buyIn'],
       blinds: Blinds.getBlindsByName(snapshot['blinds']),
       gameSpeed: GameSpeed.getBlindsByName(snapshot['gameSpeed']),
+      players: [],
     );
   }
 }

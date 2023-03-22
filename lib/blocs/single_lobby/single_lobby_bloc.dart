@@ -17,12 +17,28 @@ class SingleLobbyBloc extends Bloc<SingleLobbyEvent, SingleLobbyState> {
         super(const SingleLobbyState.initial()) {
     log('created table bloc with $_lobbyRepository');
     on<LobbySelected>(onLobbySelected);
+    on<LobbyJoined>(onLobbyJoined);
+    on<LobbyExited>(onLobbyExited);
   }
 
   void onLobbySelected(LobbySelected event, Emitter<SingleLobbyState> emit) {
     emit(state.copyWith(
         lobbyId: event.lobbyId, status: OperationStatus.loading));
 
+    emit(state.copyWith(status: OperationStatus.successfull));
+  }
+
+  void onLobbyJoined(LobbyJoined event, Emitter<SingleLobbyState> emit) async {
+    log('User ${event.playerId} joining lobby ${event.lobbyId}');
+    emit(state.copyWith(status: OperationStatus.loading));
+    await _lobbyRepository.joinPlayerToLobby(event.lobbyId, event.playerId);
+    emit(state.copyWith(status: OperationStatus.successfull));
+  }
+
+  void onLobbyExited(LobbyExited event, Emitter<SingleLobbyState> emit) async {
+    log('User ${event.playerId} exiting lobby ${event.lobbyId}');
+    emit(state.copyWith(status: OperationStatus.loading));
+    await _lobbyRepository.removePlayerFromLobby(event.lobbyId, event.playerId);
     emit(state.copyWith(status: OperationStatus.successfull));
   }
 }

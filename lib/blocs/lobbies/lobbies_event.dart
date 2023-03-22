@@ -11,6 +11,9 @@ class CashLobbyCreated extends LobbiesEvent {
   final List<CashLobby> cashLobbies;
 
   CashLobbyCreated({required this.cashLobbies});
+
+  @override
+  List<Object> get props => [cashLobbies];
 }
 
 class UpdateCashLobbiesRequested extends LobbiesEvent {}

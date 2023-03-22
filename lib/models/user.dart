@@ -23,6 +23,7 @@ class User extends Equatable {
         _balance = 0.0;
 
   bool get isEmpty => this == const User.empty();
+  String get id => _id;
   String get username => _username ?? '';
   double get balance => _balance;
 
