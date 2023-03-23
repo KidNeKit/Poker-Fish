@@ -41,9 +41,9 @@ class _TableScreenState extends State<TableScreen> {
     return Scaffold(
       body: Column(
         children: const [
-          TableWithPlayers(),
+          //TableWithPlayers(),
           TablePlayer(),
-          TurnButtons(),
+          //TurnButtons(),
         ],
       ),
     );
