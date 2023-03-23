@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/single_lobby/single_lobby_bloc.dart';
-import 'table_player.dart';
-import 'table_with_players.dart';
-import 'turn_buttons.dart';
+import 'components/stack_layers/buttons_layer.dart';
+import 'components/stack_layers/player_layer.dart';
 
 class TableScreen extends StatefulWidget {
   static const String routeName = '/table';
@@ -37,14 +34,17 @@ class _TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //context.read<LobbiesBloc>().add(CashLobbyCreated());
+    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: const [
-          //TableWithPlayers(),
-          TablePlayer(),
-          //TurnButtons(),
-        ],
+      body: SizedBox(
+        height: screenSize.height,
+        width: screenSize.width,
+        child: Stack(
+          children: const [
+            PlayerLayer(),
+            ButtonsLayer(),
+          ],
+        ),
       ),
     );
   }
